@@ -7,8 +7,21 @@
   justify-content: center;
   border: 1px solid black;
   margin: 0 7.5px 15px;
-  background-position: center;
-  background-size: cover;
+  overflow: hidden;
+
+  &:hover{
+    cursor: pointer;
+
+    & .background-image{
+      transform: scale(1.1);
+      transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+    }
+
+    & .content{
+      opacity: 0.9;
+    }
+  }
+  
 
   // & means that if element contains parent class (menu-item) + in this case large class
   // applies this style too, caoul be &.className, or &#idName, etc.
@@ -24,6 +37,13 @@
     margin-left: 7.5px;
   }
 
+  .background-image{
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+  }
+
   .content {
     height: 90px;
     padding: 0 25px;
@@ -33,7 +53,9 @@
     justify-content: center;
     // border: 1px solid black;
     border-radius: 10px;
-    background-color: #ffffff72;
+    background-color: white;
+    opacity: 0.7;
+    position: absolute;
 
     .title {
       font-weight: bold;
