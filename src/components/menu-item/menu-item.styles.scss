@@ -7,6 +7,14 @@
   justify-content: center;
   border: 1px solid black;
   margin: 0 7.5px 15px;
+  background-position: center;
+  background-size: cover;
+
+  // & means that if element contains parent class (menu-item) + in this case large class
+  // applies this style too, caoul be &.className, or &#idName, etc.
+  &.large {
+    height: 380px;
+  }
 
   &:first-child {
     margin-right: 7.5px;
@@ -23,7 +31,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 1px solid black;
+    // border: 1px solid black;
+    border-radius: 10px;
+    background-color: #ffffff72;
 
     .title {
       font-weight: bold;
