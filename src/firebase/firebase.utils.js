@@ -23,8 +23,8 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   const snapShot = await userRef.get();
   
   // logging for debugging
-  console.log(snapShot);
-  console.log(userAuth);
+  // console.log(snapShot);
+  // console.log(userAuth);
 
   // Create user if not exists on db
   if(!snapShot.exists){

@@ -41,7 +41,8 @@ class App extends React.Component {
             },
             () => {
               // this one has been add in order to display log when setState trigered
-              console.log(this.state);
+              // displayin the snapshot of currentUser info
+              // console.log(this.state);
             }
           );
         });
