@@ -1,7 +1,7 @@
 import React from 'react';
 import './tuto.styles.scss';
 
-export const Turorial = () => {
+const Tutorial = () => {
   return(
     <div className="main">
       <h1>Some Information about the elements and syntax of things used on this project</h1>
@@ -64,3 +64,5 @@ export const Turorial = () => {
   );
 }
 
+
+export default Tutorial;

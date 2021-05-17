@@ -9,92 +9,93 @@
   color: #faf8f0;
   background-color: #1E1E1E;
   padding: 10px 25px;
-}
 
-h3{
-  color: #1cd2f1;
-}
 
-h2{
-  color: #92e44f;
-}
+  h3{
+    color: #1cd2f1;
+  }
 
-.subh4{
-  color: #eda828;
-}
+  h2{
+    color: #92e44f;
+  }
 
-.func_res {
-  color:#cd62e2;
-}
+  .subh4{
+    color: #eda828;
+  }
 
-.res_word {
-  color: #467ec4;
-}
+  .func_res {
+    color:#cd62e2;
+  }
 
-.comp{
-  color: #4EC9A2;
-}
+  .res_word {
+    color: #467ec4;
+  }
 
-.error{
-  color: #f25454;
-}
+  .comp{
+    color: #4EC9A2;
+  }
 
-.texto {
-  color: #dc9244;
-}
+  .error{
+    color: #f25454;
+  }
 
-.comentario {
-  font-style: italic;
-  color:#4e9e4e;
-  background-color: #232428;
-}
+  .texto {
+    color: #dc9244;
+  }
 
-.nota {
-  background-color: #ffffcc;
-  color: #1E1E1E;
-  padding: 10px;
-  border-radius: 5px;
-}
+  .comentario {
+    font-style: italic;
+    color:#4e9e4e;
+    background-color: #232428;
+  }
 
-.syntax{
-  font-family: 'Consolas',"courier new";  
-  border: 1px solid #faf8f0;
-  border-radius: 5px;
-  padding: 10px;
-  width: fit-content;
-  block-size: fit-content;
-}
+  .nota {
+    background-color: #ffffcc;
+    color: #1E1E1E;
+    padding: 10px;
+    border-radius: 5px;
+  }
 
-table{
-  border: solid 2px #464646;
-}
+  .syntax{
+    font-family: 'Consolas',"courier new";  
+    border: 1px solid #faf8f0;
+    border-radius: 5px;
+    padding: 10px;
+    width: fit-content;
+    block-size: fit-content;
+  }
 
-tr:nth-child(even){
-  background-color: #292929;
-}
+  table{
+    border: solid 2px #464646;
+  }
 
-th{
-  padding: 0 10px 0 10px;
-}
+  tr:nth-child(even){
+    background-color: #292929;
+  }
 
-td{
-  /* width:150px; */
-  border:2px solid #464646;
-  padding: 3px 10px;
-}
+  th{
+    padding: 0 10px 0 10px;
+  }
 
-.var{
-  color: #9cdcfe;
-}
+  td{
+    /* width:150px; */
+    border:2px solid #464646;
+    padding: 3px 10px;
+  }
 
-.function{
-  color: #ffffcc;
-}
+  .var{
+    color: #9cdcfe;
+  }
 
-.dom_res{
-  color: #4ec9b0;
-}
+  .function{
+    color: #ffffcc;
+  }
 
-.num{
-  color: #b5cea8;
+  .dom_res{
+    color: #4ec9b0;
+  }
+
+  .num{
+    color: #b5cea8;
+  }
 }
