@@ -8,7 +8,7 @@ import HomePage from "./pages/homepage/hompage.component";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
-import { auth } from "./firebase/firebase.utils";
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
 // previously was a function component but we need to access to this.state, so that is why we converted it to a class component.
 class App extends React.Component {
@@ -24,14 +24,42 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged( user => {
-      this.setState({ currentUser: user });
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      // if user is authenticated, load that data to this.state.currentUser
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
 
-      console.log(user);
-    })
+        // load the data from the snapShot object
+        userRef.onSnapshot((snapShot) => {
+          // console.log(snapShot.id, snapShot.data())
+          this.setState(
+            {
+              currentUser: {
+                id: snapShot.id,
+                ...snapShot.data(),
+              },
+            },
+            () => {
+              // this one has been add in order to display log when setState trigered
+              console.log(this.state);
+            }
+          );
+        });
+      } else {
+        this.setState({ currentUser: userAuth });
+      }
+    });
   }
 
-  componentWillUnmount(){
+  // componentDidMount() {
+  //   this.unsubscribeFromAuth = auth.onAuthStateChanged( async user => {
+  //     createUserProfileDocument(user);
+  //     // this.setState({ currentUser: user });
+  //     // console.log(user);
+  //   });
+  // }
+
+  componentWillUnmount() {
     this.unsubscribeFromAuth();
   }
   // -- end
@@ -40,7 +68,7 @@ class App extends React.Component {
     return (
       <div>
         {/* <Route path="/" component={Header} /> */}
-        <Header currentUser={this.state.currentUser}/>
+        <Header currentUser={this.state.currentUser} />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/tuto" component={Tutorial} />

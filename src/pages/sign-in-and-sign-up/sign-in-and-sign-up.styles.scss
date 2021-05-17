@@ -1,4 +1,16 @@
 .sign-in-and-sign-up{
-  margin: 0;
-  padding: 0 2vw;
+  width: 850px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+
+  &.title{
+    margin-top: 30px;
+  }
+
+  @media screen and (max-width: 900px) {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
 }
