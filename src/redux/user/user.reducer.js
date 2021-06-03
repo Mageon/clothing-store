@@ -18,7 +18,7 @@
 
 // https://redux.js.org/introduction/getting-started
 
-
+import { userActionTypes } from './user.types';
 // we initialize the state as null as our App.js
 const INITIAL_STATE = {
   currentUser: null,
@@ -29,7 +29,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
   // switch used for if no action match a case, return the actual state
   // remember that state is an object, and an object we must return
   switch (action.type) {
-    case "SET_CURRENT_USER":
+    case userActionTypes.SET_CURRENT_USER:
       return {
         ...state,
         currentUser: action.payload,
