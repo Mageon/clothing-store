@@ -1,7 +1,6 @@
 import React from "react";
 import "./collection-preview.styles.scss";
-import CollectionItem from '../collection-item/collection-item.component';
-
+import CollectionItem from "../collection-item/collection-item.component";
 
 const CollectionPreview = ({ title, items }) => {
   return (
@@ -10,9 +9,9 @@ const CollectionPreview = ({ title, items }) => {
       <div className="preview">
         {items
           .filter((item, idx) => idx < 4)
-          .map(({id, ...otherItemProps}) => (
-            // <div key={item.id}>{item.name}</div>
-            <CollectionItem key={id} {...otherItemProps} />
+          .map((item) => (
+            <CollectionItem key={item.id} item={item} />
+            // Here we are sending the entire item to CollectionItem component, because we need it for the cartDropDown component
           ))}
       </div>
     </div>
