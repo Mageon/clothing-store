@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/imgs/crown.svg";
 
 import { auth } from "../../firebase/firebase.utils";
+import { connect } from 'react-redux';
 
 const Header = ({ currentUser }) => (
   <div className="header">
@@ -34,4 +35,14 @@ const Header = ({ currentUser }) => (
   </div>
 );
 
-export default Header;
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+});
+
+// The connect() function connects a React component to a Redux store.
+// Syntax:
+  // function connect(mapStateToProps?, mapDispatchToProps?, mergeProps?, options?)
+// For a full overview of connect function and mapStateToProps go to:
+// https://react-redux.js.org/api/connect
+
+export default connect(mapStateToProps)(Header);

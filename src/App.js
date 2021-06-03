@@ -9,21 +9,17 @@ import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import { connect } from "react-redux";
+import { setCurrentUser } from "./redux/user/user.actions";
 
-// previously was a function component but we need to access to this.state, so that is why we converted it to a class component.
 class App extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      currentUser: null,
-    };
-  }
-
   // -- This block help get user authenticated and to logoff user
   unsubscribeFromAuth = null;
 
   componentDidMount() {
+    //1.- le pasamos a setCurrenUser las props para esta parte, ir a 2
+    const {setCurrentUser} = this.props;
+
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       // if user is authenticated, load that data to this.state.currentUser
       if (userAuth) {
@@ -31,55 +27,41 @@ class App extends React.Component {
 
         // load the data from the snapShot object
         userRef.onSnapshot((snapShot) => {
-          // console.log(snapShot.id, snapShot.data())
-          this.setState(
-            {
-              currentUser: {
-                id: snapShot.id,
-                ...snapShot.data(),
-              },
-            },
-            () => {
-              // this one has been add in order to display log when setState trigered
-              // displayin the snapshot of currentUser info
-              // console.log(this.state);
-            }
-          );
+          //2.- En lugar de this.setState usaremos setCurrentuser que ahora tiene las props, ir a 3
+          setCurrentUser({
+              id: snapShot.id,
+              ...snapShot.data()
+          });
         });
       } else {
-        this.setState({ currentUser: userAuth });
+        // 3.- aqui tambien cambiamos this.setState a setCurrentUser, but we don't need to pass it an object with a current user (currentUser: userAuth), we just need what the object we wanna updated with, and in this case is just userAuth
+        setCurrentUser(userAuth);
       }
     });
   }
 
-  // componentDidMount() {
-  //   this.unsubscribeFromAuth = auth.onAuthStateChanged( async user => {
-  //     createUserProfileDocument(user);
-  //     // this.setState({ currentUser: user });
-  //     // console.log(user);
-  //   });
-  // }
-
   componentWillUnmount() {
     this.unsubscribeFromAuth();
   }
-  // -- end
+  // -- end of logoff block
 
   render() {
     return (
       <div>
-        {/* <Route path="/" component={Header} /> */}
-        <Header currentUser={this.state.currentUser} />
+        <Header />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/tuto" component={Tutorial} />
           <Route path="/shop" component={ShopPage} />
           <Route path="/signin" component={SignInAndSignUpPage} />
         </Switch>
-        {/* Switch renders the first match of the Route component, then renders nothing else */}
       </div>
     );
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
+
+export default connect(null, mapDispatchToProps )(App);
