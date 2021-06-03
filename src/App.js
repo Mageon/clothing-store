@@ -11,7 +11,6 @@ import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
-
 class App extends React.Component {
   // -- This block help get user authenticated and to logoff user
   unsubscribeFromAuth = null;

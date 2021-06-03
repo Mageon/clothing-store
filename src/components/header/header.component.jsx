@@ -4,9 +4,12 @@ import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/imgs/crown.svg";
 
 import { auth } from "../../firebase/firebase.utils";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
+import CartIcon from "../cart-icon/cart-icon.component";
 
-const Header = ({ currentUser }) => (
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
+
+const Header = ({ currentUser, hidden }) => (
   <div className="header">
     <Link className="logo-container" to="/">
       <Logo className="logo"></Logo>
@@ -28,20 +31,29 @@ const Header = ({ currentUser }) => (
           SIGN IN
         </Link>
       )}
-      <Link className="option" to="/shopkart">
-        SHOP KART
-      </Link>
+      {/* Added CartIcon component to the Header */}
+      <CartIcon />
     </div>
+    {
+      // If hidden is true, then renders nothing, and if false, then shows CartDropdown component
+      hidden ? null : <CartDropdown />
+    }
   </div>
 );
 
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+// Here we need to destructure (desestructurar) the state we recieve as follow
+// const mapStateToProps = state => ({
+//   currentUser: state.user.currentUser
+// });
+
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  currentUser,
+  hidden,
 });
 
 // The connect() function connects a React component to a Redux store.
 // Syntax:
-  // function connect(mapStateToProps?, mapDispatchToProps?, mergeProps?, options?)
+// function connect(mapStateToProps?, mapDispatchToProps?, mergeProps?, options?)
 // For a full overview of connect function and mapStateToProps go to:
 // https://react-redux.js.org/api/connect
 
