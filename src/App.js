@@ -1,16 +1,20 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 
-import "./App.css";
-
 import Tutorial from "./pages/tuto/tuto";
 import HomePage from "./pages/homepage/hompage.component";
 import ShopPage from "./pages/shop/shop.component";
+import CheckoutPage from './pages/checkout/checkout.component';
 import Header from "./components/header/header.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
+import { selectCurrentUser } from './redux/user/user.selectors';
+import { createStructuredSelector } from 'reselect';
+
+import "./App.css";
+
 class App extends React.Component {
   // -- This block help get user authenticated and to logoff user
   unsubscribeFromAuth = null;
@@ -52,6 +56,7 @@ class App extends React.Component {
           <Route exact path="/" component={HomePage} />
           <Route path="/tuto" component={Tutorial} />
           <Route path="/shop" component={ShopPage} />
+          <Route exact path="/checkout" component={CheckoutPage} />
           {/* <Route path="/signin" component={SignInAndSignUpPage} /> */}
           {/*
             Here insisde of our Route, we are going to add exact, then remove the component property and add render (which is the same as the render above), it's a javascript invocation that determines what component to return in the same place our component would be, instaead it'll be some javascript.
@@ -81,8 +86,13 @@ class App extends React.Component {
 }
 
 // Here we are going to destructure our userReducer and what we will return is our currentUser prop which is = to user.currentUser, and now we're able to pass mapStateToProps to our connect...
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
+// const mapStateToProps = ({ user }) => ({
+//   currentUser: user.currentUser,
+// });
+
+// Same as above but using the Selectors and createStructuredSelector:
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({

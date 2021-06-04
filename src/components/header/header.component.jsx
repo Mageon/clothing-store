@@ -1,13 +1,17 @@
 import React from "react";
-import "./header.styles.scss";
 import { Link } from "react-router-dom";
-import { ReactComponent as Logo } from "../../assets/imgs/crown.svg";
+import { connect } from "react-redux";
+import { createStructuredSelector } from 'reselect';
 
 import { auth } from "../../firebase/firebase.utils";
-import { connect } from "react-redux";
 import CartIcon from "../cart-icon/cart-icon.component";
-
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
+import { selectCartHidden } from '../../redux/cart/cart.selectors';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+
+import { ReactComponent as Logo } from "../../assets/imgs/crown.svg";
+
+import "./header.styles.scss";
 
 const Header = ({ currentUser, hidden }) => (
   <div className="header">
@@ -46,9 +50,21 @@ const Header = ({ currentUser, hidden }) => (
 //   currentUser: state.user.currentUser
 // });
 
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
-  currentUser,
-  hidden,
+// const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+//   currentUser,
+//   hidden,
+// });
+
+// Here we are going to use the selectors as usual
+// const mapStateToProps = (state) => ({
+//   currentUser: selectCurrentUser(state),
+//   hidden: selectCartHidden(state),
+// });
+
+// Buuuuuuuuuuut we can use our createStructuredSelector which it automatically pass the top lvl state instead of passing it everytime as above:
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden,
 });
 
 // The connect() function connects a React component to a Redux store.
