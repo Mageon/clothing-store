@@ -6,6 +6,7 @@ import { withRouter } from "react-router-dom";
 import CustomButton from "../custom-button/custom-button.component";
 import CartItem from "../cart-item/cart-item.component";
 import { selectCartItems } from "../../redux/cart/cart.selectors";
+import { toggleCartHidden } from '../../redux/cart/cart.actions';
 
 import "./cart-dropdown.styles.scss";
 
@@ -26,7 +27,7 @@ import "./cart-dropdown.styles.scss";
 //   </div>
 // );
 
-const CartDropdown = ({ cartItems, history }) => (
+const CartDropdown = ({ cartItems, history, dispatch }) => (
   <div className="cart-dropdown">
     <div className="cart-items">
       {cartItems.length ? (
@@ -37,7 +38,10 @@ const CartDropdown = ({ cartItems, history }) => (
         <span className="empty-message">Your cart is empty</span>
       )}
     </div>
-    <CustomButton onClick={() => history.push("/checkout")}>
+    <CustomButton onClick={() => {
+        history.push("/checkout");
+        dispatch(toggleCartHidden());
+      }}>
       GO TO CHECKOUT
     </CustomButton>
   </div>
@@ -66,3 +70,4 @@ const mapStateToProps = createStructuredSelector({
 
 // Here we are using withRouter, wrapping our connect, because we need the connect items in our checkout page which is the one with we are going to use this option, so we WRAP the connect as follow:
 export default withRouter(connect(mapStateToProps)(CartDropdown));
+// What we might not know is that connect actually passes dispatch into our components as a prop if we do not supply a second argument to connect, so if we do not supply mapDispatchToProps a sthe second parameter, connect will pass the dispatch into our dropdown. So our component as a property and the reason it does this is because if we need to make one off action dispatches.
