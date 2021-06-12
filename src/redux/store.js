@@ -1,5 +1,9 @@
 //  Middleware
 import { createStore, applyMiddleware } from 'redux';
+
+// persistStore allow our browser to cache our store now, depending on certain configuration options that we are going to set
+import { persistStore } from 'redux-persist';
+
 import logger from 'redux-logger';
 
 import rootReducer from './root-reducer';
@@ -21,8 +25,12 @@ const middlewares = [logger];
     // ...middleware (arguments): Functions that conform to the Redux middleware API. Each middleware receives Store's dispatch and getState functions as named arguments, and returns a function. That function will be given the next middleware's dispatch method, and is expected to return a function of action calling next(action) with a potentially different argument, or at a different time, or maybe not calling it at all. The last middleware in the chain will receive the real store's dispatch method as the next parameter, thus ending the chain. So, the middleware signature is ({ getState, dispatch }) => next => action.
 // https://redux.js.org/api/applymiddleware
 
-const store = createStore(rootReducer, applyMiddleware(...middlewares));
+export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 // so ...middlewares will spread in all of the methods or all of the values in middlewares array, into this function call as individual arguments.
 
+// what this thing does is it call our persistStore passing in our store, so this persistore is essentially a persisted version of our store, and using this and our store, is how we will actually create our new provider that's wrapping our applcation.
+export const persistor = persistStore(store);
+
 // now we are going to export the store and pass it to the Provider in our index.js file
-export default store;
+export default (store, persistor);
+// as far as our export default goes, we're gonna return an object that gives both the store and the persistor, and now we will have access to both of these if we need it, but we won't actually really use it, but it's just good for us to write it in case of.
