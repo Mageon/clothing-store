@@ -28,7 +28,7 @@ const middlewares = [logger];
 export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 // so ...middlewares will spread in all of the methods or all of the values in middlewares array, into this function call as individual arguments.
 
-// what this thing does is it call our persistStore passing in our store, so this persistore is essentially a persisted version of our store, and using this and our store, is how we will actually create our new provider that's wrapping our applcation.
+// what this thing does is it call our persistStore passing in our store, so this persistore is essentially a persisted version of our store, and using this and our store, is how we will actually create our new provider that's wrapping our application.
 export const persistor = persistStore(store);
 
 // now we are going to export the store and pass it to the Provider in our index.js file
