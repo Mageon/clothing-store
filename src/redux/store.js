@@ -9,7 +9,7 @@ import logger from 'redux-logger';
 import rootReducer from './root-reducer';
 
 // so the middlewares that the store is expecting from redux is going to be an array that we can set ourselves as this thing called middlewares, and we make it an array and insitde is oir loger middleware
-const middlewares = [logger];
+const middlewares = [];
 
 // createStore: Creates a Redux store that holds the complete state tree of your app. There should only be a single store in your app.
 // Sytntax:
@@ -24,6 +24,13 @@ const middlewares = [logger];
   // applyMiddleware(...middleware)
     // ...middleware (arguments): Functions that conform to the Redux middleware API. Each middleware receives Store's dispatch and getState functions as named arguments, and returns a function. That function will be given the next middleware's dispatch method, and is expected to return a function of action calling next(action) with a potentially different argument, or at a different time, or maybe not calling it at all. The last middleware in the chain will receive the real store's dispatch method as the next parameter, thus ending the chain. So, the middleware signature is ({ getState, dispatch }) => next => action.
 // https://redux.js.org/api/applymiddleware
+
+
+// if we are in development mode then the logger gets activated on middlewares
+// Es decir que si la variable de ambiente NODE_ENV tiene develpment entonces podremos ver el logger en la consola del browser al presionar F12
+if (process.env.NODE_ENV === 'develpment') {
+  middlewares.push(logger);
+}
 
 export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 // so ...middlewares will spread in all of the methods or all of the values in middlewares array, into this function call as individual arguments.
